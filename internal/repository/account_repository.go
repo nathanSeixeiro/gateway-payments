@@ -36,8 +36,8 @@ func (repository *AccountRepository) FindByAPIKey(apiKey string) (*domain.Accoun
 	var createdAt, updatedAt time.Time
 
 	err := repository.db.QueryRow(`
-		SELECT id, name, email, api_key, balance, created_at, updated_at 
-		FROM accounts 
+		SELECT id, name, email, api_key, balance, created_at, updated_at
+		FROM accounts
 		WHERE api_key = $1
 	`, apiKey).Scan(
 		&account.ID,
@@ -67,8 +67,8 @@ func (repository *AccountRepository) FindByID(id string) (*domain.Account, error
 	var createdAt, updatedAt time.Time
 
 	err := repository.db.QueryRow(`
-		SELECT id, name, email, api_key, balance, created_at, updated_at 
-		FROM accounts 
+		SELECT id, name, email, api_key, balance, created_at, updated_at
+		FROM accounts
 		WHERE id = $1
 	`, id).Scan(
 		&account.ID,
@@ -102,8 +102,8 @@ func (repository *AccountRepository) UpdateBalance(account *domain.Account) erro
 	defer tx.Rollback()
 
 	err = tx.QueryRow(`
-		SELECT balance 
-		FROM accounts 
+		SELECT balance
+		FROM accounts
 		WHERE id = $1
 		FOR UPDATE
 	`, account.ID).Scan(&currentBalance)
@@ -117,7 +117,7 @@ func (repository *AccountRepository) UpdateBalance(account *domain.Account) erro
 
 	_, err = tx.Exec(
 		`
-		UPDATE accounts 
+		UPDATE accounts
 		SET balance = $1
 		, updated_at = $2
 		WHERE id = $3

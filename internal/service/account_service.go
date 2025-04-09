@@ -9,8 +9,8 @@ type AccountService struct {
 	accountRepository domain.AccountRepository
 }
 
-func NewAccountService(accountRepository domain.AccountRepository) *AccountService {
-	return &AccountService{accountRepository: accountRepository}
+func NewAccountService(repository domain.AccountRepository) *AccountService {
+	return &AccountService{accountRepository: repository}
 }
 
 func (s *AccountService) CreateAccount(req dto.CreateAccountDTO) (*dto.AccountResponseDTO, error) {
@@ -22,8 +22,7 @@ func (s *AccountService) CreateAccount(req dto.CreateAccountDTO) (*dto.AccountRe
 	if existingAccount != nil {
 		return nil, domain.ErrDuplicateAPIKey
 	}
-	account, err = s.accountRepository.Save(account)
-	if err != nil {
+	err = s.accountRepository.Save(account); if err != nil {
 		return nil, err
 	}
 	res := dto.FromDomain(account)
