@@ -6,6 +6,7 @@ import (
 	"log"
 	"os"
 
+	_ "github.com/lib/pq"
 	"github.com/joho/godotenv"
 	"github.com/nathanSeixeiro/gateway-payments/internal/repository"
 	"github.com/nathanSeixeiro/gateway-payments/internal/service"

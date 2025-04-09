@@ -1,0 +1,17 @@
+@baseUrl = http://localhost:8080
+
+### Create Account
+@name createAccount
+POST {{baseUrl}}/accounts
+Content-Type:application/json
+
+{
+    "name": "Test Account",
+    "email": "test@example.com"
+}
+
+### Get Account by API Key
+@name getAccount
+@apiKey = "test-api-key"
+GET {{baseUrl}}/accounts
+X-API-Key:{{apiKey}}
